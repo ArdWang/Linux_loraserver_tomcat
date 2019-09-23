@@ -51,7 +51,8 @@ yum groupinstall "GNOME Desktop" "Graphical Administration Tools"
 ### 配置Tomcat
 
 按照这个网址操作 https://www.cnblogs.com/skyflask/p/9023749.html
-注意点 安装了 CentOS桌面版本后 是自带 JAVA的可以省去Java的安装操作
+
+注意点 安装了 CentOS桌面版本后 是自带 JAVA的可以省去Java的安装操作 解压的时候也要注意 这个网址上面说的是tomcat 我们解压的是带 tomacat-v8.5.31这种的所以在 vim /etc/profile.d/tomcat.sh的时候需要这样子写 vim /etc/profile.d/tomcat-v8.5.31.sh 一定要搞对不然会出错的
 直接安装 Tomcat
 可以直接到官网下载 Tomcat最新的安装包 注意必须要选择 上面的哪个 不是带Soruce的哪个 不然安装包解压不完整启动不了的
 
@@ -64,7 +65,7 @@ ln -sv apache-tomcat-8.5.31 tomcat
 
 2.配置环境变量
 
-vim /etc/profile.d/tomcat.sh
+vim /etc/profile.d/tomcat-v8.5.31.sh
 
 CATALINA_BASE=/usr/local/tomcat
 PATH=$CATALINA_BASE/bin:$PATH
