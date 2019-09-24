@@ -146,9 +146,9 @@ sudo mysql_secure_installation
 1，设置所有主机都可以访问，关闭防火墙
 
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'WITH GRANT OPTION;  
-1
+
 FLUSH PRIVILEGES;  
-1
+
 2，关闭防火墙
 在CentOS7中关闭防火墙使用以下命令，
 //临时关闭
@@ -175,8 +175,48 @@ service iptables status
 
 如果是轻量级服务器的话，可参考https://yq.aliyun.com/articles/423205
 
+注意在连接的时候可能发生错误
+https://blog.csdn.net/i_yuanpeng/article/details/98970080
+
+Mysql连接错误提示：ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)
+
+方案：
+
+        使用：ps -ef|grep mysql  （查看mysql进程）--  查看是否有多余进程
+
+        使用：kill -9  XXXX （杀掉多余进程）-- 杀掉
+
+        使用：service mysql stop（关闭Mysql服务）
+
+        使用：ps -ef|grep mysql（查看mysql是否还有多余进程）
+
+        使用：service mysql restart（启动Mysql服务）
+
+        再次登录Mysql，到此成功登录！
+        
+    重置密码的时候 需要 
+    
 
 
+        使用：ps -ef|grep mysql  （查看mysql进程）--  查看是否有多余进程
+
+        使用：kill -9  XXXX （杀掉多余进程）-- 杀掉
+
+        使用：service mysql stop（关闭Mysql服务）
+
+        使用：ps -ef|grep mysql（查看mysql是否还有多余进程）
+
+        使用：service mysql restart（启动Mysql服务）
+
+        再次登录Mysql，到此成功登录！
+————————————————
+
+重置密码 注意
+
+需要进入 # vim /etc/my.cnf
+找到 [mysqld]
+添加 skip-grant-tables
+然后保存文档并退出
 
 
 
