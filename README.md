@@ -194,21 +194,6 @@ Mysql连接错误提示：ERROR 2002 (HY000): Can't connect to local MySQL serve
 
         再次登录Mysql，到此成功登录！
         
-    重置密码的时候 需要 
-    
-
-
-        使用：ps -ef|grep mysql  （查看mysql进程）--  查看是否有多余进程
-
-        使用：kill -9  XXXX （杀掉多余进程）-- 杀掉
-
-        使用：service mysql stop（关闭Mysql服务）
-
-        使用：ps -ef|grep mysql（查看mysql是否还有多余进程）
-
-        使用：service mysql restart（启动Mysql服务）
-
-        再次登录Mysql，到此成功登录！
 ————————————————
 
 重置密码 注意
