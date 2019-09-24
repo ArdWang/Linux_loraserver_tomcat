@@ -83,6 +83,106 @@ catalina.sh version
 
 ### mysql的安装
 
+1.停掉服务 service mysqld stop
+
+2.确保所有msyql的服务进程杀死
+ps -ef | grep -i mysql 查出mysql的相关进程
+然后一个一个地 kill -9 进程号
+
+3.删除mysql的rpm包
+rpm -qa | grep -i mysql | xargs rpm -e --nodeps
+
+4.删除mysql遗留的文件
+find / -name mysql | xargs rm -rf
+find / -name my.cnf | xargs rm -rf
+
+然后开始下载 mysql
+
+具体看以下安装网址
+https://blog.csdn.net/lizy928/article/details/82531749
+
+下载安装包
+wget http://repo.mysql.com/mysql57-community-release-el7-8.noarch.rpm
+
+未安装wget的同学执行以下命令安装
+
+sudo yum install wget
+
+安装
+ sudo rpm -ivh mysql57-community-release-el7-8.noarch.rpm
+
+sudo yum install mysql-server
+
+安装完成
+3. 设置密码
+当第一次启动MySQL服务器时，为MySQL根用户生成一个临时密码。 您可以通过运行以下命令找到密码：
+
+ sudo grep 'temporary password' /var/log/mysqld.log
+1
+输出如下内容：
+
+如果这个文件为空：
+1.删除原来安装过的mysql残留的数据（这一步非常重要，问题就出在这）
+rm -rf /var/lib/mysql
+2.重启mysqld服务
+systemctl restart mysqld
+3.再去找临时密码
+grep ‘temporary password’ /var/log/mysqld.log
+
+localhost：后边的就是临时密码，先复制下来
+配置mysql安装项：
+
+sudo mysql_secure_installation
+
+
+输入刚才的临时密码
+接下来mysql会提示你输入新的密码，和一下其他设置，一般情况下我们都会输入y（密码必须至少包含8个字符并且至少包含一个大写字母，一个小写字母，一个数字和一个特殊字符。）
+
+看到All done!表示配置已经完成，尝试远程访问一下
+
+访问成功，但是在利用SQLyog工具连接出现了问题
+
+出现这种现象的原因有两个，一个是当前用户被mysql服务器拒绝，另外一个原因是3306端口被被防火墙禁掉，无法连接到该端口。解决方法如下：
+1，设置所有主机都可以访问，关闭防火墙
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'WITH GRANT OPTION;  
+1
+FLUSH PRIVILEGES;  
+1
+2，关闭防火墙
+在CentOS7中关闭防火墙使用以下命令，
+//临时关闭
+
+systemctl stop firewalld
+
+//禁止开机启动
+
+systemctl disable firewalld
+
+当然，如果安装了iptables-service，也可以使用下面的命令，
+
+yum install -y iptables-services
+
+//关闭防火墙
+
+service iptables stop
+
+//检查防火墙状态
+
+service iptables status
+
+如果是阿里云ecs服务器的话需要设置开放端口号，在服务器控制台找到 安全组-配置规则-添加安全组规则
+
+如果是轻量级服务器的话，可参考https://yq.aliyun.com/articles/423205
+
+
+
+
+
+
+
+
+
 
 
 
