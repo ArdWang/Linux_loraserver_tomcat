@@ -79,6 +79,9 @@ source  /etc/profile.d/tomcat.sh
 
 catalina.sh version
 
+启动
+catalina.sh start
+
 其它的 请看上面的网址
 
 ### mysql的安装
