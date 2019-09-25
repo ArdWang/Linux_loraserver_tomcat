@@ -197,6 +197,14 @@ Mysql连接错误提示：ERROR 2002 (HY000): Can't connect to local MySQL serve
 
         再次登录Mysql，到此成功登录！
         
+        1.删除原来安装过的mysql残留的数据（这一步非常重要，问题就出在这）
+rm -rf /var/lib/mysql
+
+systemctl start mysqld
+3.再去找临时密码
+grep ‘temporary password’ /var/log/mysqld.log
+
+        
 ————————————————
 
 重置密码 注意
